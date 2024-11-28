@@ -11,7 +11,7 @@ import SnapKit
 class SignUpViewController: UIViewController {
    
     // MARK: - Properties
-    var signUpViewModel : SignUpViewModelProtocol!
+    let authManager = AuthManager()
     
     // MARK: - UI Elements
     lazy var signUpEmail: EmailTextField = {
@@ -40,7 +40,6 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        signUpViewModel = SignUpViewModel()
     }
     
     // MARK: - Actions
@@ -53,13 +52,13 @@ class SignUpViewController: UIViewController {
         
         let user = User(email: email, password: password)
         
-        signUpViewModel.signUpUser(user: user) { result in
+        authManager.signUpUser(user: user) { result in
             switch result {
-            case .success:
+            case .success():
                 let logInVC = LogInViewController()
                 logInVC.modalPresentationStyle = .fullScreen
                 self.present(logInVC, animated: true, completion: nil)
-            case .failure(let error):
+            case.failure(let error):
                 self.makeAlert(titleInput: "Error", messageInput: error.localizedDescription )
             }
         }

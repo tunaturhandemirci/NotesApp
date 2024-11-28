@@ -11,7 +11,7 @@ import SnapKit
 class LogInViewController: UIViewController {
     
     // MARK: - Properties
-    var signInViewModel: SignInViewModelProtocol!
+    let authManager = AuthManager()
     
     // MARK: - UI Elements
     lazy var notesAppLabel: UILabel = {
@@ -84,7 +84,6 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        signInViewModel = SignInViewModel()
     }
     
     // MARK: - Actions
@@ -96,8 +95,8 @@ class LogInViewController: UIViewController {
         }
         
         let user = User(email: email, password: password)
-        
-        signInViewModel.signInUser(user: user) { result in
+
+        authManager.signInUser(user: user) { result in
             switch result {
             case .success:
                 let homeVC = HomeViewController()

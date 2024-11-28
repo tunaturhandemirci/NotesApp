@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		80520F87FD93AB2504A09103 /* Pods_NotesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963DD909845033AE45AC7830 /* Pods_NotesApp.framework */; };
-		A52A72202CF63AA300E78EA9 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52A721F2CF63AA300E78EA9 /* AuthenticationViewModel.swift */; };
-		A52A72222CF63DD900E78EA9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52A72212CF63DD900E78EA9 /* File.swift */; };
 		A53493F72CF48BEB00F60C01 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53493F62CF48BEB00F60C01 /* UITextField+Extensions.swift */; };
 		A54391E12CF5DCB9003BE848 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391E02CF5DCB9003BE848 /* SignUpViewController.swift */; };
 		A54391E42CF5E38B003BE848 /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391E32CF5E38B003BE848 /* UIView+Gradient.swift */; };
@@ -17,9 +15,8 @@
 		A54391E92CF5E8F7003BE848 /* EmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391E82CF5E8F7003BE848 /* EmailTextField.swift */; };
 		A54391EB2CF5EA45003BE848 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391EA2CF5EA45003BE848 /* PasswordTextField.swift */; };
 		A54391EE2CF61115003BE848 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391ED2CF61115003BE848 /* User.swift */; };
-		A54391F12CF61226003BE848 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391F02CF61226003BE848 /* SignUpViewModel.swift */; };
 		A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */; };
-		A54391F52CF622EE003BE848 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391F42CF622EE003BE848 /* SignInViewModel.swift */; };
+		A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546BC322CF88FFE007E3E0C /* AuthManager.swift */; };
 		A5B34C022CF1F96400C15B76 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B34C012CF1F96400C15B76 /* LogInViewController.swift */; };
 		A5F151072CF1EA7D002F41B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F151062CF1EA7D002F41B2 /* AppDelegate.swift */; };
 		A5F151092CF1EA7D002F41B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F151082CF1EA7D002F41B2 /* SceneDelegate.swift */; };
@@ -34,8 +31,6 @@
 		78710B4AE72226F06DE0511B /* Pods-NotesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesApp.release.xcconfig"; path = "Target Support Files/Pods-NotesApp/Pods-NotesApp.release.xcconfig"; sourceTree = "<group>"; };
 		929699CFB38A83A83D5DC7B6 /* Pods-NotesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesApp.debug.xcconfig"; path = "Target Support Files/Pods-NotesApp/Pods-NotesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		963DD909845033AE45AC7830 /* Pods_NotesApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotesApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A52A721F2CF63AA300E78EA9 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
-		A52A72212CF63DD900E78EA9 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		A53493F62CF48BEB00F60C01 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		A54391E02CF5DCB9003BE848 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A54391E32CF5E38B003BE848 /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
@@ -43,9 +38,8 @@
 		A54391E82CF5E8F7003BE848 /* EmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextField.swift; sourceTree = "<group>"; };
 		A54391EA2CF5EA45003BE848 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		A54391ED2CF61115003BE848 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		A54391F02CF61226003BE848 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
-		A54391F42CF622EE003BE848 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		A546BC322CF88FFE007E3E0C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		A5B34C012CF1F96400C15B76 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		A5F151032CF1EA7D002F41B2 /* NotesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5F151062CF1EA7D002F41B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,11 +111,16 @@
 		A54391EF2CF611F4003BE848 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A54391F42CF622EE003BE848 /* SignInViewModel.swift */,
-				A54391F02CF61226003BE848 /* SignUpViewModel.swift */,
-				A52A721F2CF63AA300E78EA9 /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A546BC312CF88FDF007E3E0C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				A546BC322CF88FFE007E3E0C /* AuthManager.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		A5B34C002CF1F94100C15B76 /* LogIn */ = {
@@ -154,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				A5F1511D2CF1EBB4002F41B2 /* App */,
+				A546BC312CF88FDF007E3E0C /* Service */,
 				A5F1511E2CF1EC8A002F41B2 /* ViewControllers */,
 				A54391EF2CF611F4003BE848 /* ViewModel */,
 				A54391EC2CF6107A003BE848 /* Model */,
@@ -163,7 +163,6 @@
 				A5F151172CF1EA84002F41B2 /* Info.plist */,
 				A5F151252CF1F1BD002F41B2 /* GoogleService-Info.plist */,
 				A5F1510F2CF1EA7E002F41B2 /* NotesApp.xcdatamodeld */,
-				A52A72212CF63DD900E78EA9 /* File.swift */,
 			);
 			path = NotesApp;
 			sourceTree = "<group>";
@@ -337,22 +336,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5F151072CF1EA7D002F41B2 /* AppDelegate.swift in Sources */,
-				A54391F12CF61226003BE848 /* SignUpViewModel.swift in Sources */,
+				A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */,
 				A54391E12CF5DCB9003BE848 /* SignUpViewController.swift in Sources */,
 				A54391E92CF5E8F7003BE848 /* EmailTextField.swift in Sources */,
-				A52A72202CF63AA300E78EA9 /* AuthenticationViewModel.swift in Sources */,
 				A54391E42CF5E38B003BE848 /* UIView+Gradient.swift in Sources */,
 				A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */,
 				A5F151092CF1EA7D002F41B2 /* SceneDelegate.swift in Sources */,
 				A54391E62CF5E5C8003BE848 /* UIViewController+Keyboard.swift in Sources */,
 				A5F151112CF1EA7E002F41B2 /* NotesApp.xcdatamodeld in Sources */,
 				A53493F72CF48BEB00F60C01 /* UITextField+Extensions.swift in Sources */,
-				A52A72222CF63DD900E78EA9 /* File.swift in Sources */,
 				A54391EE2CF61115003BE848 /* User.swift in Sources */,
 				A5B34C022CF1F96400C15B76 /* LogInViewController.swift in Sources */,
 				A54391EB2CF5EA45003BE848 /* PasswordTextField.swift in Sources */,
 				A5F151232CF1ECEF002F41B2 /* HomeViewController.swift in Sources */,
-				A54391F52CF622EE003BE848 /* SignInViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

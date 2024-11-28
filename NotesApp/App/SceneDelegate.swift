@@ -11,15 +11,14 @@ import FirebaseAuth
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var authenticationViewModel: AuthenticationViewModel!
+    let authManager = AuthManager()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        authenticationViewModel = AuthenticationViewModel()
-        
-        authenticationViewModel.checkUserAuthentication { isAuthenticated in
+       
+        authManager.checkUserAuthentication { isAuthenticated in
             if isAuthenticated {
                 let homeVC = HomeViewController()
                 let startViewController = UINavigationController(rootViewController: homeVC)
@@ -29,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let startViewController = UINavigationController(rootViewController: logInVC)
                 self.window?.rootViewController = startViewController
             }
-            
             self.window?.makeKeyAndVisible()
         }
     }
