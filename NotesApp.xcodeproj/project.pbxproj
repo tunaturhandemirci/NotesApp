@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		80520F87FD93AB2504A09103 /* Pods_NotesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963DD909845033AE45AC7830 /* Pods_NotesApp.framework */; };
+		A5267B8A2CF8D1CE00AB9659 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5267B892CF8D1CE00AB9659 /* ProcessViewController.swift */; };
 		A53493F72CF48BEB00F60C01 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53493F62CF48BEB00F60C01 /* UITextField+Extensions.swift */; };
 		A54391E12CF5DCB9003BE848 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391E02CF5DCB9003BE848 /* SignUpViewController.swift */; };
 		A54391E42CF5E38B003BE848 /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391E32CF5E38B003BE848 /* UIView+Gradient.swift */; };
@@ -31,6 +32,7 @@
 		78710B4AE72226F06DE0511B /* Pods-NotesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesApp.release.xcconfig"; path = "Target Support Files/Pods-NotesApp/Pods-NotesApp.release.xcconfig"; sourceTree = "<group>"; };
 		929699CFB38A83A83D5DC7B6 /* Pods-NotesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesApp.debug.xcconfig"; path = "Target Support Files/Pods-NotesApp/Pods-NotesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		963DD909845033AE45AC7830 /* Pods_NotesApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotesApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5267B892CF8D1CE00AB9659 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
 		A53493F62CF48BEB00F60C01 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		A54391E02CF5DCB9003BE848 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A54391E32CF5E38B003BE848 /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 				963DD909845033AE45AC7830 /* Pods_NotesApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5267B882CF8D1AB00AB9659 /* Process */ = {
+			isa = PBXGroup;
+			children = (
+				A5267B892CF8D1CE00AB9659 /* ProcessViewController.swift */,
+			);
+			path = Process;
 			sourceTree = "<group>";
 		};
 		A53493F52CF48BAF00F60C01 /* Extensions */ = {
@@ -182,6 +192,7 @@
 				A5B34C002CF1F94100C15B76 /* LogIn */,
 				A54391E22CF5DCBE003BE848 /* SignUp */,
 				A5F1511F2CF1ECA7002F41B2 /* Home */,
+				A5267B882CF8D1AB00AB9659 /* Process */,
 				A5F151212CF1ECC2002F41B2 /* Note */,
 			);
 			path = ViewControllers;
@@ -346,6 +357,7 @@
 				A5F151112CF1EA7E002F41B2 /* NotesApp.xcdatamodeld in Sources */,
 				A53493F72CF48BEB00F60C01 /* UITextField+Extensions.swift in Sources */,
 				A54391EE2CF61115003BE848 /* User.swift in Sources */,
+				A5267B8A2CF8D1CE00AB9659 /* ProcessViewController.swift in Sources */,
 				A5B34C022CF1F96400C15B76 /* LogInViewController.swift in Sources */,
 				A54391EB2CF5EA45003BE848 /* PasswordTextField.swift in Sources */,
 				A5F151232CF1ECEF002F41B2 /* HomeViewController.swift in Sources */,
