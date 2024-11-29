@@ -29,6 +29,7 @@ class SignUpViewController: UIViewController {
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.backgroundColor = .blue
+        signUpButton.clipsToBounds = true
         signUpButton.layer.cornerRadius = 20
         signUpButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +39,6 @@ class SignUpViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     

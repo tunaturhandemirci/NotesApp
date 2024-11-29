@@ -17,9 +17,9 @@ class LogInViewController: UIViewController {
     lazy var notesAppLabel: UILabel = {
         let notesAppLabel = UILabel()
         notesAppLabel.text = "NotesApp"
-        notesAppLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         notesAppLabel.textColor = UIColor.white
         notesAppLabel.textAlignment = .center
+        notesAppLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         notesAppLabel.translatesAutoresizingMaskIntoConstraints = false
         return notesAppLabel
     }()
@@ -27,8 +27,8 @@ class LogInViewController: UIViewController {
     lazy var notesImageView: UIImageView = {
         let notesImageView = UIImageView()
         notesImageView.image = UIImage(named: "NotesApp.png")
-        notesImageView.translatesAutoresizingMaskIntoConstraints = false
         notesImageView.clipsToBounds = true
+        notesImageView.translatesAutoresizingMaskIntoConstraints = false
         return notesImageView
     }()
     
@@ -47,6 +47,7 @@ class LogInViewController: UIViewController {
         signInButton.setTitle("Sign In", for: .normal)
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.backgroundColor = .green
+        signInButton.clipsToBounds = true
         signInButton.layer.cornerRadius = 20
         signInButton.addTarget(self, action: #selector(signInClicked), for: .touchUpInside)
         signInButton.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +75,6 @@ class LogInViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         notesImageView.layer.cornerRadius = notesImageView.frame.height / 2
         notesImageView.layer.borderWidth = 2.0
         notesImageView.layer.borderColor = UIColor.white.cgColor
@@ -82,7 +82,6 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     

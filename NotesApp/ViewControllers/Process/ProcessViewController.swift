@@ -6,17 +6,17 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProcessViewController: UIViewController {
-
+    
     let authManager = AuthManager()
     
     lazy var processSaveButton: UIButton = {
         let processSaveButton = UIButton(type: .system)
         processSaveButton.setTitle("Save", for: .normal)
-        processSaveButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         processSaveButton.setTitleColor(.white, for: .normal)
-        processSaveButton.layer.cornerRadius = 25
+        processSaveButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         processSaveButton.addTarget(self, action: #selector(saveButtonClicked), for: .touchUpInside)
         processSaveButton.translatesAutoresizingMaskIntoConstraints = false
         return processSaveButton
@@ -35,11 +35,11 @@ class ProcessViewController: UIViewController {
     lazy var selectProfilImageView : UIImageView = {
         let selectProfilImageView = UIImageView()
         selectProfilImageView.image = UIImage(systemName: "person.fill")
+        selectProfilImageView.tintColor = .white
         selectProfilImageView.clipsToBounds = true
         selectProfilImageView.layer.cornerRadius = 30
         selectProfilImageView.layer.borderWidth = 2.0
         selectProfilImageView.layer.borderColor = UIColor.white.cgColor
-        selectProfilImageView.tintColor = .white
         selectProfilImageView.translatesAutoresizingMaskIntoConstraints = false
         return selectProfilImageView
     }()
@@ -63,15 +63,15 @@ class ProcessViewController: UIViewController {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: userNameTextField.frame.height))
         userNameTextField.leftView = paddingView
         userNameTextField.leftViewMode = .always
-        
         return userNameTextField
     }()
     
-   lazy var logOutButton: UIButton = {
+    lazy var logOutButton: UIButton = {
         let logOutButton = UIButton(type: .system)
         logOutButton.setTitle("Log Out", for: .normal)
         logOutButton.setTitleColor(.black, for: .normal)
         logOutButton.backgroundColor = .white
+        logOutButton.clipsToBounds = true
         logOutButton.layer.cornerRadius = 25
         logOutButton.addTarget(self, action: #selector(signOutUser), for: .touchUpInside)
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
@@ -79,8 +79,7 @@ class ProcessViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
+        super.viewDidLoad()        
         setupUI()
     }
     
@@ -106,7 +105,7 @@ class ProcessViewController: UIViewController {
             }
         }
     }
-        
+    
     private func setupUI() {
         let bounds = UIScreen.main.bounds
         let height = bounds.size.height
@@ -115,12 +114,12 @@ class ProcessViewController: UIViewController {
         view.backgroundColor = .black
         
         let uiElementsProcess : [UIView] = [
-             processSaveButton,
-             exitButton,
-             selectProfilImageView,
-             userNameTextField,
-             logOutButton
-         ]
+            processSaveButton,
+            exitButton,
+            selectProfilImageView,
+            userNameTextField,
+            logOutButton
+        ]
         
         for element in uiElementsProcess {
             view.addSubview(element)

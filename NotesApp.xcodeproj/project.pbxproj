@@ -18,6 +18,10 @@
 		A54391EE2CF61115003BE848 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391ED2CF61115003BE848 /* User.swift */; };
 		A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */; };
 		A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546BC322CF88FFE007E3E0C /* AuthManager.swift */; };
+		A59E90442CF9DA8E0080D1A2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90432CF9DA8E0080D1A2 /* Note.swift */; };
+		A59E90462CF9E2B50080D1A2 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90452CF9E2B50080D1A2 /* NoteCell.swift */; };
+		A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */; };
+		A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90562CFA263E0080D1A2 /* NoteTextView.swift */; };
 		A5B34C022CF1F96400C15B76 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B34C012CF1F96400C15B76 /* LogInViewController.swift */; };
 		A5F151072CF1EA7D002F41B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F151062CF1EA7D002F41B2 /* AppDelegate.swift */; };
 		A5F151092CF1EA7D002F41B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F151082CF1EA7D002F41B2 /* SceneDelegate.swift */; };
@@ -42,6 +46,10 @@
 		A54391ED2CF61115003BE848 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		A546BC322CF88FFE007E3E0C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		A59E90432CF9DA8E0080D1A2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		A59E90452CF9E2B50080D1A2 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		A59E90562CFA263E0080D1A2 /* NoteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
 		A5B34C012CF1F96400C15B76 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		A5F151032CF1EA7D002F41B2 /* NotesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5F151062CF1EA7D002F41B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +114,7 @@
 			children = (
 				A54391E82CF5E8F7003BE848 /* EmailTextField.swift */,
 				A54391EA2CF5EA45003BE848 /* PasswordTextField.swift */,
+				A59E90562CFA263E0080D1A2 /* NoteTextView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -114,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				A54391ED2CF61115003BE848 /* User.swift */,
+				A59E90432CF9DA8E0080D1A2 /* Note.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				A5F151222CF1ECEF002F41B2 /* HomeViewController.swift */,
+				A59E90452CF9E2B50080D1A2 /* NoteCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -209,6 +220,7 @@
 		A5F151212CF1ECC2002F41B2 /* Note */ = {
 			isa = PBXGroup;
 			children = (
+				A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */,
 			);
 			path = Note;
 			sourceTree = "<group>";
@@ -349,7 +361,11 @@
 				A5F151072CF1EA7D002F41B2 /* AppDelegate.swift in Sources */,
 				A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */,
 				A54391E12CF5DCB9003BE848 /* SignUpViewController.swift in Sources */,
+				A59E90462CF9E2B50080D1A2 /* NoteCell.swift in Sources */,
+				A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */,
 				A54391E92CF5E8F7003BE848 /* EmailTextField.swift in Sources */,
+				A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */,
+				A59E90442CF9DA8E0080D1A2 /* Note.swift in Sources */,
 				A54391E42CF5E38B003BE848 /* UIView+Gradient.swift in Sources */,
 				A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */,
 				A5F151092CF1EA7D002F41B2 /* SceneDelegate.swift in Sources */,
