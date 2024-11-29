@@ -74,11 +74,17 @@ class HomeViewController: UIViewController {
         
         view.setupGradientBackground()
         
-        view.addSubview(processButton)
-        view.addSubview(profilImageView)
-        view.addSubview(userNameLabel)
-        view.addSubview(myNotesLabel)
+        let uiElementsHome : [UIView] = [
+            profilImageView,
+            userNameLabel,
+            processButton,
+            myNotesLabel
+        ]
         
+        for element in uiElementsHome {
+            view.addSubview(element)
+        }
+
         profilImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(height * 0.07)
             make.leading.equalToSuperview().inset(width * 0.06)
@@ -103,7 +109,6 @@ class HomeViewController: UIViewController {
             make.leading.equalToSuperview().inset(width * 0.06)
             make.height.equalTo(50)
             make.width.equalTo(180)
-            
         }
     }
 }

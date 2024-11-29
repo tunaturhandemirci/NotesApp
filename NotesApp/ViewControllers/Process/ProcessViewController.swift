@@ -11,6 +11,27 @@ class ProcessViewController: UIViewController {
 
     let authManager = AuthManager()
     
+    lazy var processSaveButton: UIButton = {
+        let processSaveButton = UIButton(type: .system)
+        processSaveButton.setTitle("Save", for: .normal)
+        processSaveButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        processSaveButton.setTitleColor(.white, for: .normal)
+        processSaveButton.layer.cornerRadius = 25
+        processSaveButton.addTarget(self, action: #selector(saveButtonClicked), for: .touchUpInside)
+        processSaveButton.translatesAutoresizingMaskIntoConstraints = false
+        return processSaveButton
+    }()
+    
+    lazy var exitButton: UIButton = {
+        let exitButton = UIButton(type: .system)
+        exitButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        exitButton.setTitleColor(.black, for: .normal)
+        exitButton.tintColor = .white
+        exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
+        exitButton.translatesAutoresizingMaskIntoConstraints = false
+        return exitButton
+    }()
+    
     lazy var selectProfilImageView : UIImageView = {
         let selectProfilImageView = UIImageView()
         selectProfilImageView.image = UIImage(systemName: "person.fill")
@@ -46,29 +67,7 @@ class ProcessViewController: UIViewController {
         return userNameTextField
     }()
     
-    lazy var exitButton: UIButton = {
-        let exitButton = UIButton(type: .system)
-        exitButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-        exitButton.setTitleColor(.black, for: .normal)
-        exitButton.tintColor = .white
-        exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
-        return exitButton
-    }()
-    
-    lazy var processSaveButton: UIButton = {
-        let processSaveButton = UIButton(type: .system)
-        processSaveButton.setTitle("Save", for: .normal)
-        processSaveButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        processSaveButton.setTitleColor(.white, for: .normal)
-        processSaveButton.layer.cornerRadius = 25
-        processSaveButton.addTarget(self, action: #selector(saveButtonClicked), for: .touchUpInside)
-        processSaveButton.translatesAutoresizingMaskIntoConstraints = false
-        return processSaveButton
-    }()
-    
-    
-    lazy var logOutButton: UIButton = {
+   lazy var logOutButton: UIButton = {
         let logOutButton = UIButton(type: .system)
         logOutButton.setTitle("Log Out", for: .normal)
         logOutButton.setTitleColor(.black, for: .normal)
@@ -83,7 +82,10 @@ class ProcessViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
-       
+    }
+    
+    @objc func saveButtonClicked() {
+        print("Save")
     }
     
     @objc func exitButtonClicked() {
@@ -92,12 +94,7 @@ class ProcessViewController: UIViewController {
         present(homeVC, animated: false, completion: nil)
     }
     
-    @objc func saveButtonClicked() {
-        print("Save")
-    }
-    
     @objc func signOutUser() {
-        
         authManager.signOut { result in
             switch result {
             case .success(_):
@@ -117,24 +114,23 @@ class ProcessViewController: UIViewController {
         
         view.backgroundColor = .black
         
-        view.addSubview(logOutButton)
-        view.addSubview(userNameTextField)
-        view.addSubview(exitButton)
-        view.addSubview(processSaveButton)
-        view.addSubview(selectProfilImageView)
+        let uiElementsProcess : [UIView] = [
+             processSaveButton,
+             exitButton,
+             selectProfilImageView,
+             userNameTextField,
+             logOutButton
+         ]
         
-        selectProfilImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(height * 0.12)
-            make.leading.equalToSuperview().inset(width * 0.06)
-            make.width.height.equalTo(60)
+        for element in uiElementsProcess {
+            view.addSubview(element)
         }
         
-        userNameTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(height * 0.125)
-            make.leading.equalTo(selectProfilImageView.snp.leading).inset(width * 0.18)
+        processSaveButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(height * 0.015)
+            make.leading.equalToSuperview().inset(width * 0.02)
             make.height.equalTo(50)
-            make.width.equalTo(width * 0.70)
-           
+            make.width.equalTo(100)
         }
         
         exitButton.snp.makeConstraints { make in
@@ -143,11 +139,17 @@ class ProcessViewController: UIViewController {
             make.width.height.equalTo(40)
         }
         
-        processSaveButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(height * 0.015)
-            make.leading.equalToSuperview().inset(width * 0.02)
+        selectProfilImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(height * 0.06)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(60)
+        }
+        
+        userNameTextField.snp.makeConstraints { make in
+            make.top.equalTo(selectProfilImageView.snp.top).inset(height * 0.09)
+            make.centerX.equalToSuperview()
             make.height.equalTo(50)
-            make.width.equalTo(100)
+            make.width.equalTo(width * 0.70)
         }
         
         logOutButton.snp.makeConstraints { make in
