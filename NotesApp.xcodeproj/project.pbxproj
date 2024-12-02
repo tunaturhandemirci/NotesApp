@@ -18,7 +18,7 @@
 		A54391EE2CF61115003BE848 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391ED2CF61115003BE848 /* User.swift */; };
 		A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */; };
 		A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546BC322CF88FFE007E3E0C /* AuthManager.swift */; };
-		A59E90442CF9DA8E0080D1A2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90432CF9DA8E0080D1A2 /* Note.swift */; };
+		A549647D2CFDC81100CE8C63 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */; };
 		A59E90462CF9E2B50080D1A2 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90452CF9E2B50080D1A2 /* NoteCell.swift */; };
 		A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */; };
 		A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90562CFA263E0080D1A2 /* NoteTextView.swift */; };
@@ -46,7 +46,7 @@
 		A54391ED2CF61115003BE848 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		A546BC322CF88FFE007E3E0C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
-		A59E90432CF9DA8E0080D1A2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A59E90452CF9E2B50080D1A2 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		A59E90562CFA263E0080D1A2 /* NoteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
@@ -123,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				A54391ED2CF61115003BE848 /* User.swift */,
-				A59E90432CF9DA8E0080D1A2 /* Note.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -131,6 +130,7 @@
 		A54391EF2CF611F4003BE848 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -358,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A549647D2CFDC81100CE8C63 /* HomeViewModel.swift in Sources */,
 				A5F151072CF1EA7D002F41B2 /* AppDelegate.swift in Sources */,
 				A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */,
 				A54391E12CF5DCB9003BE848 /* SignUpViewController.swift in Sources */,
@@ -365,7 +366,6 @@
 				A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */,
 				A54391E92CF5E8F7003BE848 /* EmailTextField.swift in Sources */,
 				A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */,
-				A59E90442CF9DA8E0080D1A2 /* Note.swift in Sources */,
 				A54391E42CF5E38B003BE848 /* UIView+Gradient.swift in Sources */,
 				A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */,
 				A5F151092CF1EA7D002F41B2 /* SceneDelegate.swift in Sources */,

@@ -7,67 +7,56 @@
 
 import UIKit
 
-class NoteCell: UICollectionViewCell {
+class NoteCell : UICollectionViewCell {
     static let identifier = "NoteCell"
     
-    private let titleLabel = UILabel()
-    private let descriptionLabel = UILabel()
-    private let imageView = UIImageView()
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .darkGray
+        label.numberOfLines = 8
+        label.lineBreakMode = .byTruncatingTail 
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    var cellBackgroundColor: UIColor? {
+            didSet {
+                contentView.backgroundColor = cellBackgroundColor
+            }
+        }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.layer.cornerRadius = 12
-        contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .systemGray6
-        setupViews()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupViews() {
-        titleLabel.font = .boldSystemFont(ofSize: 16)
-        titleLabel.numberOfLines = 2
-        titleLabel.textColor = .white
-        
-        descriptionLabel.font = .systemFont(ofSize: 14)
-        descriptionLabel.textColor = .white
-        descriptionLabel.numberOfLines = 3
-        
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 8
-        imageView.clipsToBounds = true
-        
+    private func setupUI() {
+        contentView.layer.cornerRadius = 20
+        contentView.layer.masksToBounds = true
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(imageView)
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview().inset(10)
+        }
         
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            
-            imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            imageView.heightAnchor.constraint(equalToConstant: 60)
-        ])
-    }
-    
-    func configure(with note: Note) {
-        titleLabel.text = note.title
-        descriptionLabel.text = note.description
-        contentView.backgroundColor = note.color
-        imageView.image = note.image
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.top).inset(30)
+            make.leading.trailing.equalToSuperview().inset(10)
+        }
     }
 }

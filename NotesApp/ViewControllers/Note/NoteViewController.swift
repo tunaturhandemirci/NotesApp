@@ -10,7 +10,9 @@ import SnapKit
 import CoreData
 
 class NoteViewController: UIViewController {
-
+    
+    private var selectedColor: UIColor = .green // Varsayılan olarak beyaz
+    
     lazy var backButton : UIButton = {
         let backButton = UIButton(type: .system)
         backButton.setTitle("Back", for: .normal)
@@ -20,7 +22,7 @@ class NoteViewController: UIViewController {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         return backButton
     }()
-   
+    
     lazy var noteSaveButton : UIButton = {
         let noteSaveButton = UIButton(type: .system)
         noteSaveButton.setTitle("Save", for: .normal)
@@ -95,17 +97,72 @@ class NoteViewController: UIViewController {
         homeVC.modalPresentationStyle = .fullScreen
         self.present(homeVC, animated: true, completion: nil)
     }
-    
+    /*
+     */
     @objc func noteSaveButtonClicked() {
-        print("save")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let newNote = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: context)
+        
+        // title ve description alanlarının boş olup olmadığını kontrol et
+        guard let title = titleTextView.text, !title.isEmpty else {
+            makeAlert(titleInput: "error", messageInput: "error")
+            return
+        }
+        
+        guard let description = descriptionTextView.text, !description.isEmpty else {
+            makeAlert(titleInput: "error", messageInput: "error")
+            return
+        }
+        
+        newNote.setValue(title, forKey: "title")
+        newNote.setValue(description, forKey: "content")
+        newNote.setValue(Date(), forKey: "date")
+        newNote.setValue(UUID(), forKey: "id")
+        
+        // Rengi kaydet (UIColor -> Data)
+        if let colorData = try? NSKeyedArchiver.archivedData(withRootObject: selectedColor, requiringSecureCoding: false) {
+            newNote.setValue(colorData, forKey: "color")
+        }
+        
+        // Veriyi kaydet
+        do {
+            try context.save()
+            self.dismiss(animated: true)
+            print("succes")
+        } catch {
+            print("error")
+        }
     }
+    /*
+     */
     
     @objc func cameraButtonClicked() {
         print("camera")
     }
     
     @objc func paintbrushButtonClicked() {
-        print("paint")
+        let alertController = UIAlertController(title: "Choose a Color", message: nil, preferredStyle: .actionSheet)
+        
+        let colors: [(String, UIColor)] = [
+            ("Red", .red),
+            ("Yellow", .yellow),
+            ("Green", .green)
+        ]
+        
+        for color in colors {
+            let action = UIAlertAction(title: color.0, style: .default) { _ in
+                self.selectedColor = color.1 // Kullanıcının seçtiği rengi kaydet
+            }
+            alertController.addAction(action)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+        
     }
     
     private func setupUI() {
