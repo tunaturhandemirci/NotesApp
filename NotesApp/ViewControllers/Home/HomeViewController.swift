@@ -66,12 +66,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = HomeViewModel()
-        viewModel.reloadData = { [weak self] in
-            self?.homeCollectionView?.reloadData()
-        }
-        viewModel.fetchNotes()
+        configureHomeViewModel()
         setupUI()
     }
     
@@ -88,6 +83,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let noteVC = NoteViewController()
         noteVC.modalPresentationStyle = .fullScreen
         self.present(noteVC, animated: true, completion: nil)
+    }
+    
+    private func configureHomeViewModel() {
+        viewModel = HomeViewModel()
+        
+        viewModel.reloadData = { [weak self] in
+            self?.homeCollectionView?.reloadData()
+        }
+        viewModel.fetchNotes()
     }
     
     private func setupUI() {

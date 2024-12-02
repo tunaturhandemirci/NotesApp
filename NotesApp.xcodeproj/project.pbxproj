@@ -19,6 +19,8 @@
 		A54391F32CF61C8C003BE848 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */; };
 		A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546BC322CF88FFE007E3E0C /* AuthManager.swift */; };
 		A549647D2CFDC81100CE8C63 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */; };
+		A549647F2CFDD2B200CE8C63 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549647E2CFDD2B200CE8C63 /* NoteModel.swift */; };
+		A54964812CFDD33C00CE8C63 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54964802CFDD33C00CE8C63 /* NoteViewModel.swift */; };
 		A59E90462CF9E2B50080D1A2 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90452CF9E2B50080D1A2 /* NoteCell.swift */; };
 		A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */; };
 		A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90562CFA263E0080D1A2 /* NoteTextView.swift */; };
@@ -47,6 +49,8 @@
 		A54391F22CF61C8C003BE848 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		A546BC322CF88FFE007E3E0C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A549647E2CFDD2B200CE8C63 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
+		A54964802CFDD33C00CE8C63 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
 		A59E90452CF9E2B50080D1A2 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		A59E90562CFA263E0080D1A2 /* NoteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				A54391ED2CF61115003BE848 /* User.swift */,
+				A549647E2CFDD2B200CE8C63 /* NoteModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */,
+				A54964802CFDD33C00CE8C63 /* NoteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -141,6 +147,14 @@
 				A546BC322CF88FFE007E3E0C /* AuthManager.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		A54964822CFDDCFD00CE8C63 /* HomeCell */ = {
+			isa = PBXGroup;
+			children = (
+				A59E90452CF9E2B50080D1A2 /* NoteCell.swift */,
+			);
+			path = HomeCell;
 			sourceTree = "<group>";
 		};
 		A5B34C002CF1F94100C15B76 /* LogIn */ = {
@@ -212,7 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				A5F151222CF1ECEF002F41B2 /* HomeViewController.swift */,
-				A59E90452CF9E2B50080D1A2 /* NoteCell.swift */,
+				A54964822CFDDCFD00CE8C63 /* HomeCell */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -363,6 +377,7 @@
 				A546BC332CF88FFE007E3E0C /* AuthManager.swift in Sources */,
 				A54391E12CF5DCB9003BE848 /* SignUpViewController.swift in Sources */,
 				A59E90462CF9E2B50080D1A2 /* NoteCell.swift in Sources */,
+				A549647F2CFDD2B200CE8C63 /* NoteModel.swift in Sources */,
 				A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */,
 				A54391E92CF5E8F7003BE848 /* EmailTextField.swift in Sources */,
 				A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */,
@@ -371,6 +386,7 @@
 				A5F151092CF1EA7D002F41B2 /* SceneDelegate.swift in Sources */,
 				A54391E62CF5E5C8003BE848 /* UIViewController+Keyboard.swift in Sources */,
 				A5F151112CF1EA7E002F41B2 /* NotesApp.xcdatamodeld in Sources */,
+				A54964812CFDD33C00CE8C63 /* NoteViewModel.swift in Sources */,
 				A53493F72CF48BEB00F60C01 /* UITextField+Extensions.swift in Sources */,
 				A54391EE2CF61115003BE848 /* User.swift in Sources */,
 				A5267B8A2CF8D1CE00AB9659 /* ProcessViewController.swift in Sources */,

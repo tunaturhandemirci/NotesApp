@@ -7,11 +7,11 @@
 
 import UIKit
 import SnapKit
-import CoreData
 
 class NoteViewController: UIViewController {
     
-    private var selectedColor: UIColor = .green // Varsayılan olarak beyaz
+    private var viewModel: NoteViewModel!
+    private var selectedColor: UIColor = .green
     
     lazy var backButton : UIButton = {
         let backButton = UIButton(type: .system)
@@ -62,18 +62,6 @@ class NoteViewController: UIViewController {
         return descriptionTextView
     }()
     
-    lazy var cameraButton: UIButton = {
-        let cameraButton = UIButton(type: .system)
-        cameraButton.setImage(UIImage(systemName: "camera"), for: .normal)
-        cameraButton.tintColor = .white
-        cameraButton.backgroundColor = .darkGray
-        cameraButton.clipsToBounds = true
-        cameraButton.layer.cornerRadius = 30
-        cameraButton.addTarget(self, action: #selector(cameraButtonClicked), for: .touchUpInside)
-        cameraButton.translatesAutoresizingMaskIntoConstraints = false
-        return cameraButton
-    }()
-    
     lazy var paintbrushButton: UIButton = {
         let paintbrushButton = UIButton(type: .system)
         paintbrushButton.setImage(UIImage(systemName: "paintbrush.pointed"), for: .normal)
@@ -90,6 +78,7 @@ class NoteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         closeKeyboard()
+        configureNoteViewModel()
     }
     
     @objc func backButtonClicked() {
@@ -97,49 +86,9 @@ class NoteViewController: UIViewController {
         homeVC.modalPresentationStyle = .fullScreen
         self.present(homeVC, animated: true, completion: nil)
     }
-    /*
-     */
-    @objc func noteSaveButtonClicked() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let newNote = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: context)
-        
-        // title ve description alanlarının boş olup olmadığını kontrol et
-        guard let title = titleTextView.text, !title.isEmpty else {
-            makeAlert(titleInput: "error", messageInput: "error")
-            return
-        }
-        
-        guard let description = descriptionTextView.text, !description.isEmpty else {
-            makeAlert(titleInput: "error", messageInput: "error")
-            return
-        }
-        
-        newNote.setValue(title, forKey: "title")
-        newNote.setValue(description, forKey: "content")
-        newNote.setValue(Date(), forKey: "date")
-        newNote.setValue(UUID(), forKey: "id")
-        
-        // Rengi kaydet (UIColor -> Data)
-        if let colorData = try? NSKeyedArchiver.archivedData(withRootObject: selectedColor, requiringSecureCoding: false) {
-            newNote.setValue(colorData, forKey: "color")
-        }
-        
-        // Veriyi kaydet
-        do {
-            try context.save()
-            self.dismiss(animated: true)
-            print("succes")
-        } catch {
-            print("error")
-        }
-    }
-    /*
-     */
     
-    @objc func cameraButtonClicked() {
-        print("camera")
+    @objc func noteSaveButtonClicked() {
+        viewModel.saveNote(title: titleTextView.text ?? "", content: descriptionTextView.text ?? "", color: selectedColor)
     }
     
     @objc func paintbrushButtonClicked() {
@@ -153,7 +102,7 @@ class NoteViewController: UIViewController {
         
         for color in colors {
             let action = UIAlertAction(title: color.0, style: .default) { _ in
-                self.selectedColor = color.1 // Kullanıcının seçtiği rengi kaydet
+                self.selectedColor = color.1
             }
             alertController.addAction(action)
         }
@@ -162,7 +111,19 @@ class NoteViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
+    }
+    
+    private func configureNoteViewModel() {
+        viewModel = NoteViewModel(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
         
+        viewModel.onSaveNote = { [weak self] in
+            self?.dismiss(animated: true)
+            print("Success")
+        }
+        
+        viewModel.onError = { [weak self] errorMessage in
+            self?.makeAlert(titleInput: "Error", messageInput: errorMessage)
+        }
     }
     
     private func setupUI() {
@@ -179,7 +140,6 @@ class NoteViewController: UIViewController {
             whiteLine,
             titleTextView,
             descriptionTextView,
-            cameraButton,
             paintbrushButton
         ]
         
@@ -224,15 +184,9 @@ class NoteViewController: UIViewController {
             make.bottom.equalToSuperview().inset(height * 0.15)
         }
         
-        cameraButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(height * 0.05)
-            make.leading.equalToSuperview().inset(width * 0.30)
-            make.width.height.equalTo(60)
-        }
-        
         paintbrushButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(height * 0.05)
-            make.trailing.equalToSuperview().inset(width * 0.30)
+            make.centerX.equalToSuperview()
             make.width.height.equalTo(60)
         }
     }
