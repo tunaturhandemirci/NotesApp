@@ -7,10 +7,12 @@
 
 import UIKit
 import SnapKit
+import MobileCoreServices
 
-class ProcessViewController: UIViewController {
+class ProcessViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let authManager = AuthManager()
+    let processViewModel: ProcessViewModel! = nil
     
     lazy var processSaveButton: UIButton = {
         let processSaveButton = UIButton(type: .system)
@@ -40,6 +42,9 @@ class ProcessViewController: UIViewController {
         selectProfilImageView.layer.cornerRadius = 30
         selectProfilImageView.layer.borderWidth = 2.0
         selectProfilImageView.layer.borderColor = UIColor.white.cgColor
+        selectProfilImageView.isUserInteractionEnabled = true // Tıklanabilir hale getirme
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageTapped)) // Tıklama olayı
+        selectProfilImageView.addGestureRecognizer(tapGesture)
         selectProfilImageView.translatesAutoresizingMaskIntoConstraints = false
         return selectProfilImageView
     }()
@@ -79,12 +84,45 @@ class ProcessViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         setupUI()
     }
     
     @objc func saveButtonClicked() {
-        print("Save")
+        guard let userName = userNameTextField.text, !userName.isEmpty else {
+            print("Username is empty")
+            return
+        }
+        
+        // Profil resmini ve kullanıcı adını ProcessViewModel ile kaydetme
+        if let profileImage = selectProfilImageView.image {
+            // Core Data context'i sağlama
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            // ProcessViewModel'i doğru şekilde başlatma (context parametresi ile)
+            let processViewModel = ProcessViewModel(context: context)
+            
+            // User info'yu kaydetme
+            processViewModel.saveUserInfo(userName: userName, profileImage: profileImage)
+        }
+    }
+    
+    // Profile image tapped, open gallery
+    @objc func selectProfileImageTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.mediaTypes = [kUTTypeImage as String] // Sadece resimler
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // Image picker delegate method, set selected image to profileImageView
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.editedImage] as? UIImage {
+            selectProfilImageView.image = selectedImage
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
     
     @objc func exitButtonClicked() {

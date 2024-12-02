@@ -10,6 +10,12 @@ import SnapKit
 
 class NoteViewController: UIViewController {
     
+    var note: Notes?
+    
+    func configureWith(note: Notes) {
+        self.note = note
+    }
+    
     private var viewModel: NoteViewModel!
     private var selectedColor: UIColor = .green
     
@@ -79,12 +85,38 @@ class NoteViewController: UIViewController {
         setupUI()
         closeKeyboard()
         configureNoteViewModel()
+        displayNoteDetails()
+    }
+    
+    private func displayNoteDetails() {
+        guard let note = note else { return }
+        titleTextView.text = note.title
+        descriptionTextView.text = note.content
+        
+        titleTextView.isEditable = false
+        descriptionTextView.isEditable = false
+        titleTextView.placeholder = ""
+        descriptionTextView.placeholder = ""
+        paintbrushButton.isHidden = true
+        noteSaveButton.isHidden = true
+        newNoteLabel.isHidden = true
+        whiteLine.isHidden = true
+        
+        titleTextView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(120)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
+        }
+        
+        descriptionTextView.snp.makeConstraints { make in
+            make.top.equalTo(titleTextView.snp.top).inset(80)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(120)
+        }
     }
     
     @objc func backButtonClicked() {
-        let homeVC = HomeViewController()
-        homeVC.modalPresentationStyle = .fullScreen
-        self.present(homeVC, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func noteSaveButtonClicked() {

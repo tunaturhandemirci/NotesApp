@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NoteCellDelegate {
     
     var homeCollectionView: UICollectionView!
     var viewModel: HomeViewModel!
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     lazy var userNameLabel : UILabel = {
         let userNameLabel = UILabel()
         userNameLabel.text = "Hi, Username"
-        userNameLabel.textColor = .white
+        userNameLabel.textColor = .black
         userNameLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         userNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return userNameLabel
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     lazy var myNotesLabel : UILabel = {
         let myNotesLabel = UILabel()
         myNotesLabel.text = "My Notes"
-        myNotesLabel.textColor = .white
+        myNotesLabel.textColor = .black
         myNotesLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         myNotesLabel.translatesAutoresizingMaskIntoConstraints = false
         return myNotesLabel
@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     lazy var plusButton: UIButton = {
         let plusButton = UIButton(type: .system)
         plusButton.setImage(UIImage(systemName:"plus"), for: .normal)
-        plusButton.tintColor = .white
+        plusButton.tintColor = .black
         plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         plusButton.translatesAutoresizingMaskIntoConstraints = false
         return plusButton
@@ -164,6 +164,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             make.bottom.equalToSuperview().inset(height * 0.10)
         }
     }
+}
+
+extension HomeViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getNoteCount()
@@ -174,6 +177,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let note = viewModel.getNote(at: indexPath.item)
         cell.titleLabel.text = note.title
         cell.descriptionLabel.text = note.content
+        cell.delegate = self
         
         if let colorData = note.color,
            let color = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
@@ -183,9 +187,32 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.frame.width - 16) / 2
         return CGSize(width: width, height: 200)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedNote = viewModel.getNote(at: indexPath.item)
+        let noteVC = NoteViewController()
+        noteVC.modalPresentationStyle = .fullScreen
+        noteVC.configureWith(note: selectedNote)
+        present(noteVC, animated: true, completion: nil)
+    }
+    
+    func minusButtonClicked(cell: NoteCell) {
+        guard let indexPath = homeCollectionView.indexPath(for: cell) else { return }
+        
+        let alertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to delete this note?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.viewModel.deleteNote(at: indexPath.item)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }

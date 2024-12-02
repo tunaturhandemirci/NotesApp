@@ -21,6 +21,7 @@
 		A549647D2CFDC81100CE8C63 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */; };
 		A549647F2CFDD2B200CE8C63 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A549647E2CFDD2B200CE8C63 /* NoteModel.swift */; };
 		A54964812CFDD33C00CE8C63 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54964802CFDD33C00CE8C63 /* NoteViewModel.swift */; };
+		A54964842CFE0C2500CE8C63 /* ProcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54964832CFE0C2500CE8C63 /* ProcessViewModel.swift */; };
 		A59E90462CF9E2B50080D1A2 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90452CF9E2B50080D1A2 /* NoteCell.swift */; };
 		A59E90482CF9E78E0080D1A2 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */; };
 		A59E90572CFA263E0080D1A2 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E90562CFA263E0080D1A2 /* NoteTextView.swift */; };
@@ -51,6 +52,7 @@
 		A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A549647E2CFDD2B200CE8C63 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 		A54964802CFDD33C00CE8C63 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
+		A54964832CFE0C2500CE8C63 /* ProcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewModel.swift; sourceTree = "<group>"; };
 		A59E90452CF9E2B50080D1A2 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		A59E90472CF9E78E0080D1A2 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		A59E90562CFA263E0080D1A2 /* NoteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				A549647C2CFDC81100CE8C63 /* HomeViewModel.swift */,
 				A54964802CFDD33C00CE8C63 /* NoteViewModel.swift */,
+				A54964832CFE0C2500CE8C63 /* ProcessViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				A5F151112CF1EA7E002F41B2 /* NotesApp.xcdatamodeld in Sources */,
 				A54964812CFDD33C00CE8C63 /* NoteViewModel.swift in Sources */,
 				A53493F72CF48BEB00F60C01 /* UITextField+Extensions.swift in Sources */,
+				A54964842CFE0C2500CE8C63 /* ProcessViewModel.swift in Sources */,
 				A54391EE2CF61115003BE848 /* User.swift in Sources */,
 				A5267B8A2CF8D1CE00AB9659 /* ProcessViewController.swift in Sources */,
 				A5B34C022CF1F96400C15B76 /* LogInViewController.swift in Sources */,

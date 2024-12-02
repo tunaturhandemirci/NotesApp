@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+
+protocol NoteCellDelegate: AnyObject {
+    func minusButtonClicked(cell: NoteCell)
+}
 
 class NoteCell : UICollectionViewCell {
+    
+    weak var delegate: NoteCellDelegate?
     static let identifier = "NoteCell"
     
     let titleLabel: UILabel = {
@@ -29,6 +36,14 @@ class NoteCell : UICollectionViewCell {
         return label
     }()
     
+    let minusButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "minus"), for: .normal)
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     var cellBackgroundColor: UIColor? {
             didSet {
                 contentView.backgroundColor = cellBackgroundColor
@@ -44,11 +59,16 @@ class NoteCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func deleteButtonClicked() {
+        delegate?.minusButtonClicked(cell: self)
+    }
+    
     private func setupUI() {
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
+        contentView.addSubview(minusButton)
         
         titleLabel.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview().inset(10)
@@ -58,5 +78,11 @@ class NoteCell : UICollectionViewCell {
             make.top.equalTo(titleLabel.snp.top).inset(30)
             make.leading.trailing.equalToSuperview().inset(10)
         }
+        
+        minusButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(10)
+        }
+        minusButton.addTarget(self, action: #selector(deleteButtonClicked), for: .touchUpInside)
     }
 }

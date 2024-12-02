@@ -1,38 +1,40 @@
 //
-//  HomeViewModel.swift
+//  gecici.swift
 //  NotesApp
 //
 //  Created by Tuna Demirci on 2.12.2024.
 //
 
+//
+//  HomeViewModel.swift
+//  NotesApp
+//
+//  Created by Tuna Demirci on 2.12.2024.
+//
+/*
 import UIKit
 import CoreData
 import FirebaseAuth
 
 class HomeViewModel {
-    var notes: [Notes] = []
-    var reloadData: (() -> Void)?
+    var notes : [Notes] = []
+    var reloadData : (() -> Void)?
     
-    // Core Data context tanımlaması
-    private var context: NSManagedObjectContext {
-        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    }
-    
-    // Notları çekme fonksiyonu
     func fetchNotes() {
+        //
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User is not logged in")
             return
         }
+        //
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let fetchRequest : NSFetchRequest<Notes> = Notes.fetchRequest()
         
-        let fetchRequest: NSFetchRequest<Notes> = Notes.fetchRequest()
-        
-        // Tarihe göre sıralama
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        // Kullanıcıya ait notları çekmek için predicate ekleyelim
+        //
         fetchRequest.predicate = NSPredicate(format: "userID == %@", userID)
+        
         
         do {
             let fetchedNotes = try context.fetch(fetchRequest)
@@ -43,7 +45,6 @@ class HomeViewModel {
         }
     }
     
-    // Kullanıcı bilgilerini çekme fonksiyonu
     func fetchUserInfo() {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User is not logged in")
@@ -68,23 +69,23 @@ class HomeViewModel {
         }
     }
     
-    // Not sayısını döndüren fonksiyon
+    
     func getNoteCount() -> Int {
         return notes.count
     }
     
-    // Belirli bir notu döndüren fonksiyon
     func getNote(at index: Int) -> Notes {
         return notes[index]
     }
     
-    // Not silme fonksiyonu
+    // Yeni silme fonksiyonu
     func deleteNote(at index: Int) {
+        //
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User is not logged in")
             return
         }
-        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let noteToDelete = notes[index]
         
         // Silinecek notun userID'si ile karşılaştırma yapın
@@ -92,8 +93,6 @@ class HomeViewModel {
             context.delete(noteToDelete)
             do {
                 try context.save()
-                // Silme işleminden sonra verileri tekrar çek
-                fetchNotes()
             } catch {
                 print("Error deleting note: \(error)")
             }
@@ -102,3 +101,5 @@ class HomeViewModel {
         }
     }
 }
+
+*/

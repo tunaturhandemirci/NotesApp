@@ -6,5 +6,11 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="UserInfo" representedClassName="UserInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="profileImage" optional="YES" attributeType="Binary"/>
+        <attribute name="userID" optional="YES" attributeType="String"/>
+        <attribute name="userName" optional="YES" attributeType="String"/>
     </entity>
 </model>
