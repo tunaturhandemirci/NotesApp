@@ -105,6 +105,7 @@ class ProcessViewController: UIViewController, UIImagePickerControllerDelegate, 
             // User info'yu kaydetme
             processViewModel.saveUserInfo(userName: userName, profileImage: profileImage)
         }
+        self.dismiss(animated: true, completion: nil)
     }
     
     // Profile image tapped, open gallery

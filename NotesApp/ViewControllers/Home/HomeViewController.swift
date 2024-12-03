@@ -7,11 +7,16 @@
 
 import UIKit
 import SnapKit
+import FirebaseAuth
+import CoreData
 
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NoteCellDelegate {
     
     var homeCollectionView: UICollectionView!
     var viewModel: HomeViewModel!
+    
+    // Eklenen: ProcessViewModel bağlantısı
+    var processViewModel: ProcessViewModel!
     
     lazy var profilImageView : UIImageView = {
         let profilImageView = UIImageView()
@@ -68,6 +73,36 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         configureHomeViewModel()
         setupUI()
+        loadUserInfo() // Kullanıcı bilgilerini yükle
+    }
+    
+    private func loadUserInfo() {
+        // `processViewModel` üzerinden verileri çekiyoruz
+        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
+            print("Context is not available.")
+            return
+        }
+        
+        processViewModel = ProcessViewModel(context: context)
+        
+        // Kullanıcı bilgilerini `Core Data`dan çek
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "UserInfo")
+        fetchRequest.predicate = NSPredicate(format: "userID == %@", Auth.auth().currentUser?.uid ?? "")
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let userInfo = results.last {
+                if let userName = userInfo.value(forKey: "userName") as? String {
+                    userNameLabel.text = "Hi, \(userName)"
+                }
+                if let imageData = userInfo.value(forKey: "profileImage") as? Data,
+                   let image = UIImage(data: imageData) {
+                    profilImageView.image = image
+                }
+            }
+        } catch {
+            print("Failed to fetch user info: \(error)")
+        }
     }
     
     @objc func processButtonClicked() {
