@@ -11,9 +11,12 @@ import MobileCoreServices
 
 class ProcessViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: - Properties
     let authManager = AuthManager()
     let processViewModel: ProcessViewModel! = nil
+    var onKeyboardHide: (() -> Void)?
     
+    // MARK: - UI Elements
     lazy var processSaveButton: UIButton = {
         let processSaveButton = UIButton(type: .system)
         processSaveButton.setTitle("Save", for: .normal)
@@ -41,9 +44,9 @@ class ProcessViewController: UIViewController, UIImagePickerControllerDelegate, 
         selectProfilImageView.clipsToBounds = true
         selectProfilImageView.layer.cornerRadius = 30
         selectProfilImageView.layer.borderWidth = 2.0
-        selectProfilImageView.layer.borderColor = UIColor.white.cgColor
-        selectProfilImageView.isUserInteractionEnabled = true // Tıklanabilir hale getirme
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageTapped)) // Tıklama olayı
+        selectProfilImageView.layer.borderColor = UIColor.black.cgColor
+        selectProfilImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectProfileImageTapped))
         selectProfilImageView.addGestureRecognizer(tapGesture)
         selectProfilImageView.translatesAutoresizingMaskIntoConstraints = false
         return selectProfilImageView
@@ -83,47 +86,28 @@ class ProcessViewController: UIViewController, UIImagePickerControllerDelegate, 
         return logOutButton
     }()
     
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupKeyboardObservers()
     }
     
+    // MARK: - Actions
     @objc func saveButtonClicked() {
         guard let userName = userNameTextField.text, !userName.isEmpty else {
-            print("Username is empty")
+            makeAlert(titleInput: "Error", messageInput: "Please enter username")
             return
         }
-        
-        // Profil resmini ve kullanıcı adını ProcessViewModel ile kaydetme
         if let profileImage = selectProfilImageView.image {
-            // Core Data context'i sağlama
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
-            // ProcessViewModel'i doğru şekilde başlatma (context parametresi ile)
             let processViewModel = ProcessViewModel(context: context)
-            
-            // User info'yu kaydetme
             processViewModel.saveUserInfo(userName: userName, profileImage: profileImage)
         }
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    // Profile image tapped, open gallery
-    @objc func selectProfileImageTapped() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.mediaTypes = [kUTTypeImage as String] // Sadece resimler
-        imagePickerController.allowsEditing = true
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    // Image picker delegate method, set selected image to profileImageView
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.editedImage] as? UIImage {
-            selectProfilImageView.image = selectedImage
-        }
-        picker.dismiss(animated: true, completion: nil)
+        let homeVC = HomeViewController()
+        homeVC.modalPresentationStyle = .fullScreen
+        self.present(homeVC, animated: false, completion: nil)
     }
     
     @objc func exitButtonClicked() {
@@ -145,12 +129,53 @@ class ProcessViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    // MARK: - ImagePicker
+    @objc func selectProfileImageTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.mediaTypes = [kUTTypeImage as String]
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.editedImage] as? UIImage {
+            selectProfilImageView.image = selectedImage
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Keyboard Management
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            let bottomInset: CGFloat = 540
+            view.frame.origin.y = -(keyboardHeight - bottomInset)
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        onKeyboardHide?()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - UI Setup
     private func setupUI() {
         let bounds = UIScreen.main.bounds
         let height = bounds.size.height
         let width = bounds.size.width
         
         view.backgroundColor = .black
+        closeKeyboard()
         
         let uiElementsProcess : [UIView] = [
             processSaveButton,

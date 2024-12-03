@@ -8,15 +8,16 @@
 import UIKit
 import SnapKit
 
+// MARK: - NoteCellDelegate Protocol
 protocol NoteCellDelegate: AnyObject {
     func minusButtonClicked(cell: NoteCell)
 }
 
 class NoteCell : UICollectionViewCell {
-    
-    weak var delegate: NoteCellDelegate?
     static let identifier = "NoteCell"
-    
+    weak var delegate: NoteCellDelegate?
+  
+    // MARK: - UI Elements
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -44,12 +45,14 @@ class NoteCell : UICollectionViewCell {
         return button
     }()
     
+    // MARK: - Properties
     var cellBackgroundColor: UIColor? {
             didSet {
                 contentView.backgroundColor = cellBackgroundColor
             }
         }
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -59,10 +62,12 @@ class NoteCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Actions
     @objc func deleteButtonClicked() {
         delegate?.minusButtonClicked(cell: self)
     }
     
+    // MARK: - UI Setup
     private func setupUI() {
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true

@@ -14,41 +14,37 @@ class ProcessViewModel {
     var onSaveNote: (() -> Void)?
     var onError: ((String) -> Void)?
     
+    // MARK: - Initializer
     init(context: NSManagedObjectContext) {
         self.context = context
     }
     
+    // MARK: - Save User Info
     func saveUserInfo(userName: String, profileImage: UIImage) {
-            guard let userID = Auth.auth().currentUser?.uid else {
-                print("User is not logged in")
-                return
-            }
-
-            // Kullanıcı adı boş olmamalı
-            guard !userName.isEmpty else {
-                onError?("User name cannot be empty.")
-                return
-            }
-
-            // Resim boş olmamalı
-            guard let imageData = profileImage.jpegData(compressionQuality: 1.0) else {
-                onError?("Failed to convert image.")
-                return
-            }
-
-            // UserInfo entity'sine yeni veri ekliyoruz
-            let newUserInfo = NSEntityDescription.insertNewObject(forEntityName: "UserInfo", into: context)
-            
-            newUserInfo.setValue(userName, forKey: "userName")
-            newUserInfo.setValue(imageData, forKey: "profileImage")
-            newUserInfo.setValue(userID, forKey: "userID") // userID, Firebase kullanıcısıyla ilişkili
-            
-            // Kullanıcı bilgilerini kaydet
-            do {
-                try context.save()
-                print("User information saved successfully.")
-            } catch {
-                onError?("Failed to save user information.")
-            }
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User is not logged in")
+            return
         }
+        guard !userName.isEmpty else {
+            onError?("User name cannot be empty.")
+            return
+        }
+        guard let imageData = profileImage.jpegData(compressionQuality: 1.0) else {
+            onError?("Failed to convert image.")
+            return
+        }
+        
+        let newUserInfo = NSEntityDescription.insertNewObject(forEntityName: "UserInfo", into: context)
+        
+        newUserInfo.setValue(userName, forKey: "userName")
+        newUserInfo.setValue(imageData, forKey: "profileImage")
+        newUserInfo.setValue(userID, forKey: "userID")
+        
+        do {
+            try context.save()
+            print("User information saved successfully.")
+        } catch {
+            onError?("Failed to save user information.")
+        }
+    }
 }

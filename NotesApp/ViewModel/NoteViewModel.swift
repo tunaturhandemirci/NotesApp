@@ -14,10 +14,12 @@ class NoteViewModel {
     var onSaveNote: (() -> Void)?
     var onError: ((String) -> Void)?
     
+    // MARK: - Initializer
     init(context: NSManagedObjectContext) {
         self.context = context
     }
     
+    // MARK: - Save Note
     func saveNote(title: String, content: String, color: UIColor) {
         //
         guard let userID = Auth.auth().currentUser?.uid else {

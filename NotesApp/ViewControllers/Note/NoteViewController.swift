@@ -10,6 +10,7 @@ import SnapKit
 
 class NoteViewController: UIViewController {
     
+    // MARK: - Properties
     var note: Notes?
     
     func configureWith(note: Notes) {
@@ -19,6 +20,7 @@ class NoteViewController: UIViewController {
     private var viewModel: NoteViewModel!
     private var selectedColor: UIColor = .green
     
+    // MARK: - UI Elements
     lazy var backButton : UIButton = {
         let backButton = UIButton(type: .system)
         backButton.setTitle("Back", for: .normal)
@@ -80,6 +82,7 @@ class NoteViewController: UIViewController {
         return paintbrushButton
     }()
     
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -88,6 +91,49 @@ class NoteViewController: UIViewController {
         displayNoteDetails()
     }
     
+    // MARK: - Actions
+    @objc func backButtonClicked() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func noteSaveButtonClicked() {
+        viewModel.saveNote(title: titleTextView.text ?? "", content: descriptionTextView.text ?? "", color: selectedColor)
+    }
+    
+    @objc func paintbrushButtonClicked() {
+        let alertController = UIAlertController(title: "Choose a Color", message: nil, preferredStyle: .actionSheet)
+        
+        let colors: [(String, UIColor)] = [
+            ("Red", .red),
+            ("Yellow", .yellow),
+            ("Green", .green)
+        ]
+        
+        for color in colors {
+            let action = UIAlertAction(title: color.0, style: .default) { _ in
+                self.selectedColor = color.1
+            }
+            alertController.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+    
+    // MARK: - Save Core Data
+    private func configureNoteViewModel() {
+        viewModel = NoteViewModel(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+        
+        viewModel.onSaveNote = { [weak self] in
+            self?.dismiss(animated: true)
+            print("Success")
+        }
+        viewModel.onError = { [weak self] errorMessage in
+            self?.makeAlert(titleInput: "Error", messageInput: errorMessage)
+        }
+    }
+
+    // MARK: - Choosen NoteView
     private func displayNoteDetails() {
         guard let note = note else { return }
         titleTextView.text = note.title
@@ -115,49 +161,7 @@ class NoteViewController: UIViewController {
         }
     }
     
-    @objc func backButtonClicked() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func noteSaveButtonClicked() {
-        viewModel.saveNote(title: titleTextView.text ?? "", content: descriptionTextView.text ?? "", color: selectedColor)
-    }
-    
-    @objc func paintbrushButtonClicked() {
-        let alertController = UIAlertController(title: "Choose a Color", message: nil, preferredStyle: .actionSheet)
-        
-        let colors: [(String, UIColor)] = [
-            ("Red", .red),
-            ("Yellow", .yellow),
-            ("Green", .green)
-        ]
-        
-        for color in colors {
-            let action = UIAlertAction(title: color.0, style: .default) { _ in
-                self.selectedColor = color.1
-            }
-            alertController.addAction(action)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true)
-    }
-    
-    private func configureNoteViewModel() {
-        viewModel = NoteViewModel(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-        
-        viewModel.onSaveNote = { [weak self] in
-            self?.dismiss(animated: true)
-            print("Success")
-        }
-        
-        viewModel.onError = { [weak self] errorMessage in
-            self?.makeAlert(titleInput: "Error", messageInput: errorMessage)
-        }
-    }
-    
+    // MARK: - UI Setup
     private func setupUI() {
         let bounds = UIScreen.main.bounds
         let height = bounds.size.height

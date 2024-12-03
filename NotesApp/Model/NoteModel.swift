@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Note Model
 class NoteModel {
     var title: String
     var content: String

@@ -98,7 +98,7 @@ class SignUpViewController: UIViewController {
         }
         
         signUpButton.snp.makeConstraints { make in
-            make.top.equalTo(signUpPassword.snp.top).inset(height * 0.12)
+            make.top.equalTo(signUpPassword.snp.top).inset(height * 0.10)
             make.leading.trailing.equalToSuperview().inset(width * 0.10)
             make.height.equalTo(50)
         }

@@ -7,17 +7,14 @@
 
 import UIKit
 import SnapKit
-import FirebaseAuth
-import CoreData
 
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NoteCellDelegate {
     
+    // MARK: - Properties
     var homeCollectionView: UICollectionView!
     var viewModel: HomeViewModel!
     
-    // Eklenen: ProcessViewModel bağlantısı
-    var processViewModel: ProcessViewModel!
-    
+    // MARK: - UI Elements
     lazy var profilImageView : UIImageView = {
         let profilImageView = UIImageView()
         profilImageView.image = UIImage(systemName: "person.fill")
@@ -26,7 +23,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         profilImageView.layer.borderWidth = 2.0
         profilImageView.tintColor = .white
         profilImageView.backgroundColor = .black
-        profilImageView.layer.borderColor = UIColor.white.cgColor
+        profilImageView.layer.borderColor = UIColor.black.cgColor
         profilImageView.translatesAutoresizingMaskIntoConstraints = false
         return profilImageView
     }()
@@ -69,48 +66,39 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return plusButton
     }()
     
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHomeViewModel()
         setupUI()
-        loadUserInfo() // Kullanıcı bilgilerini yükle
     }
     
-    private func loadUserInfo() {
-        // `processViewModel` üzerinden verileri çekiyoruz
-        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
-            print("Context is not available.")
-            return
-        }
-        
-        processViewModel = ProcessViewModel(context: context)
-        
-        // Kullanıcı bilgilerini `Core Data`dan çek
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "UserInfo")
-        fetchRequest.predicate = NSPredicate(format: "userID == %@", Auth.auth().currentUser?.uid ?? "")
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let userInfo = results.last {
-                if let userName = userInfo.value(forKey: "userName") as? String {
-                    userNameLabel.text = "Hi, \(userName)"
-                }
-                if let imageData = userInfo.value(forKey: "profileImage") as? Data,
-                   let image = UIImage(data: imageData) {
-                    profilImageView.image = image
-                }
-            }
-        } catch {
-            print("Failed to fetch user info: \(error)")
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchNotes()
+        loadUserInfo()
     }
     
+    // MARK: - Actions
     @objc func processButtonClicked() {
         let processVC = ProcessViewController()
         processVC.modalPresentationStyle = .overCurrentContext
+        processVC.onKeyboardHide = { [weak self] in
+            guard let self = self else { return }
+            processVC.view.frame = CGRect(
+                x: 0,
+                y: self.view.frame.height * 0.6,
+                width: self.view.frame.width,
+                height: self.view.frame.height * 0.4
+            )
+        }
         self.present(processVC, animated: false, completion: {
-            processVC.view.frame = CGRect(x: 0, y: self.view.frame.height * 0.6, width: self.view.frame.width, height: self.view.frame.height * 0.4 )
-            processVC.view.layer.cornerRadius = 30
+            processVC.view.frame = CGRect(
+                x: 0,
+                y: self.view.frame.height * 0.6,
+                width: self.view.frame.width,
+                height: self.view.frame.height * 0.4
+            )
         })
     }
     
@@ -120,6 +108,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.present(noteVC, animated: true, completion: nil)
     }
     
+    // MARK: - ViewModel
     private func configureHomeViewModel() {
         viewModel = HomeViewModel()
         
@@ -129,6 +118,22 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         viewModel.fetchNotes()
     }
     
+    private func loadUserInfo() {
+        guard ((UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext) != nil else {
+            print("Context is not available.")
+            return
+        }
+        viewModel.fetchUserInfo { [weak self] userName, profileImage in
+            DispatchQueue.main.async {
+                self?.userNameLabel.text = userName != nil ? "Hi, \(userName!)" : "Hi, User"
+                if let image = profileImage {
+                    self?.profilImageView.image = image
+                }
+            }
+        }
+    }
+    
+    // MARK: - UI Setup
     private func setupUI() {
         let bounds = UIScreen.main.bounds
         let height = bounds.size.height
@@ -201,6 +206,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 }
 
+// MARK: - CollectionView Extension
 extension HomeViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -221,11 +227,6 @@ extension HomeViewController {
             cell.cellBackgroundColor = .green
         }
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width - 16) / 2
-        return CGSize(width: width, height: 200)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -250,4 +251,8 @@ extension HomeViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.frame.width - 16) / 2
+        return CGSize(width: width, height: 200)
+    }
 }
